@@ -1,84 +1,85 @@
-global_url="";
+let global_url = '';
 
-function remove_port(url){
-    if(url.substr(-4)==':80/'){
-        url=url.substring(0,url.length-4);
+function remove_port(url) {
+    if (url.endsWith(':80/')) {
+        return url.slice(0, -4);
     }
     return url;
 }
 
 function remove_wbm(url){
-    var pos=url.indexOf('/http');
-    if(pos!=-1){
-        var new_url=url.substring(pos+1);
-    }else{
-        var pos=url.indexOf('/www');
-        var new_url=url.substring(pos+1);
-    }
-    return remove_port(new_url);
+    const match = url.match(/\/((http|www).*)$/);
+    url = match ? match[1] : url;
+    return remove_port(url);
 }
 
 function remove_alexa(url){
-    var pos=url.indexOf('/siteinfo/');
-    var new_url=url.substring(pos+10);
-    return remove_port(new_url);
+    url = url.match(/\/siteinfo\/(.*)$/)[1];
+    return remove_port(url);
 }
 
 function remove_whois(url){
-    var pos=url.indexOf('/whois/');
-    var new_url=url.substring(pos+7);
-    return remove_port(new_url);
+    url = url.match(/\/whois\/(.*)$/)[1];
+    return remove_port(url);
 }
+
 /* Common method used everywhere to retrieve cleaned up URL */
 function get_clean_url() {
-    var search_term = document.getElementById('search_input').value;
-    if(search_term == ""){
-        var url=global_url;
-    }else{
-        var url=search_term;
-    }
+    const search_term = document.getElementById('search_input').value;
+    const url = search_term || global_url;
     if (url.includes('web.archive.org')) {
-        url=remove_wbm(url);
-    } else if (url.includes('www.alexa.com')) {
-        url=remove_alexa(url);
-    } else if (url.includes('www.whois.com')) {
-        url=remove_whois(url);
+        return remove_wbm(url);
+    }
+    if (url.includes('www.alexa.com')) {
+        return remove_alexa(url);
+    }
+    if (url.includes('www.whois.com')) {
+        return remove_whois(url);
     }
     return url;
 }
 
-function save_now(){
-	  chrome.runtime.sendMessage({message: "openurl",
-                                wayback_url: "https://web.archive.org/save/",
-                                page_url: get_clean_url(),
-                                method:'save' }).then(handleResponse, handleError);
+function save_now() {
+    return chrome.runtime.sendMessage({
+        message: 'openurl',
+        wayback_url: 'https://web.archive.org/save/',
+        page_url: get_clean_url(),
+        method: 'save',
+    });
 }
 
-function recent_capture(){
-	  chrome.runtime.sendMessage({message: "openurl",
-                                wayback_url: "https://web.archive.org/web/2/",
-                                page_url: get_clean_url(),
-                                method:'recent'});
+function recent_capture() {
+    return chrome.runtime.sendMessage({
+        message: 'openurl',
+        wayback_url: 'https://web.archive.org/web/2/',
+        page_url: get_clean_url(),
+        method: 'recent',
+    });
 }
 
-function first_capture(){
-	  chrome.runtime.sendMessage({message: "openurl",
-                                wayback_url: "https://web.archive.org/web/0/",
-                                page_url: get_clean_url(),
-                                method:'first'});
+function first_capture() {
+    return chrome.runtime.sendMessage({
+        message: 'openurl',
+        wayback_url: 'https://web.archive.org/web/0/',
+        page_url: get_clean_url(),
+        method: 'first',
+    });
 }
 
 function view_all(){
-	  chrome.runtime.sendMessage({message: "openurl",
-                                wayback_url: "https://web.archive.org/web/*/",
-                                page_url: get_clean_url(),
-                                method:'viewall'});
+	return chrome.runtime.sendMessage({
+        message: 'openurl',
+        wayback_url: 'https://web.archive.org/web/*/',
+        page_url: get_clean_url(),
+        method:'viewall'
+    });
 }
 
 function get_url(){
-    chrome.tabs.query({active: true,currentWindow:true},function(tabs){
-        global_url=tabs[0].url;
-    });
+    chrome.tabs.query(
+        { active: true, currentWindow: true },
+        tabs => global_url = tabs[0].url
+    );
 }
 
 function social_share(eventObj){
