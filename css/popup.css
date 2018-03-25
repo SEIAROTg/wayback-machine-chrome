@@ -27,6 +27,93 @@ hr {
 	text-align: center;
 }
 
+.timeline {
+	display: inline-block;
+	width: 90%;
+	margin: 10px 0;
+}
+
+.timeline .line {
+	height: 4px;
+	width: 100%;
+	background: #ddd;
+	border-radius: 2px;
+	position: relative;
+}
+
+.timeline .above {
+	position: relative;
+	height: 25px;
+	width: 100%;
+}
+
+.timeline .marker {
+	border-radius: 6px;
+	background: #5bc0de;
+	padding: 1px 5px;
+	font-size: 12px;
+	color: #fff;
+	position: absolute;
+	cursor: pointer;
+	transition: background;
+}
+
+.timeline .marker:hover {
+	background: #31b0d5;
+}
+
+.timeline .marker:hover::before {
+	border-top: 12px solid #31b0d5;
+}
+
+.timeline .marker::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	bottom: -6px;
+	border-top: 12px solid #5bc0de;
+}
+
+.timepoint {
+	top: -1px;
+	height: 6px;
+	width: 6px;
+	background: #000;
+	border-radius: 3px;
+	position: absolute;
+	transition: transform .2s;
+	cursor: pointer;
+}
+
+.timepoint:hover {
+	transform: scale(1.5);
+}
+
+#first_capture::before {
+	left: 0;
+	border-right: 12px solid transparent;
+}
+
+#recent_capture::before {
+	right: 0;
+	border-left: 12px solid transparent;
+}
+
+#first_capture {
+	left: 0;
+}
+
+#recent_capture {
+	right: 0;
+}
+
+#about {
+	text-align: right;
+	padding-right: 10px;
+}
+
 .btn-social {
 	border-radius: 50%;
 	color: #fff;
@@ -38,17 +125,15 @@ hr {
 	cursor: pointer;
 	font-size: 13px;
 	height: 36px;
+	line-height: 26px;
 	width: 36px;
 	transition: transform .25s;
+	vertical-align: middle;
 }
 
 .btn-social:hover {
 	color: #fff;
-	transform: scale(1.3);
-}
-
-.fa {
-	margin-top: 6px;
+	transform: scale(1.1);
 }
 
 .btn-facebook { background-color: #3b5998; }

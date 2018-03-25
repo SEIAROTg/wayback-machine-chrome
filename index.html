@@ -17,34 +17,45 @@
   </div>
 
   <div class="row">
-    <button class="btn btn-success btn-sm" id="save_now">Save Page Now</button>
+    <div class="timeline">
+      <div class="above">
+        <div id="first_capture" class="marker">Earliest</div>
+        <div id="recent_capture" class="marker">Latest</div>
+      </div>
+      <div class="line">
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="left: 0"></div>
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="left: 20px"></div>
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="left: 50px"></div>
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="left: 90px"></div>
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="left: 95px"></div>
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="left: 100px"></div>
+        <div class="timepoint" data-toggle="tooltip" data-placement="bottom" title="2016-05-13 12:15" style="right: 0px"></div>
+      </div>
+    </div>
   </div>
 
   <div class="row">
-    <button class="btn btn-primary btn-sm" id="recent_capture">Recent Version</button>
+    <div class="btn-group btn-group" role="group">
+      <button id="save_now" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Archive now">
+        <i class="fa fa-archive"></i>
+      </button>
+      <button id="overview" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Overview">
+        <i class="fa fa-info-circle"></i>
+      </button>
+      <button id="make_modal" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Site map">
+        <i class="fa fa-map"></i>
+      </button>
+      <button id="search_tweet" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Search tweet">
+        <i class="fa fa-twitter"></i>
+      </button>
+    </div>
   </div>
 
   <div class="row">
-    <button class="btn btn-warning btn-sm" id="first_capture">First Version</button>
-  </div>
-
-  <div class="row">
-    <button class="btn btn-info btn-sm" id="overview">Overview</button>
-  </div>
-
-  <div class="row">
-    <button class="btn btn-info btn-sm" id="alexa_statistics">Alexa</button>
-    <button class="btn btn-info btn-sm" id="whois_statistics">Whois</button>
-  </div>
-
-  <div class="row">
-    <button class="btn btn-default btn-twitter btn-sm" id="search_tweet">
-      <b><i class="fa fa-twitter"></i> Tweets</b>
-    </button>
-  </div>
-
-  <div class="row">
-    <button class="btn btn-default btn-sm" id="make_modal">Site Map</button>
+    <div class="btn-group btn-group-sm" role="group">
+      <button id="alexa_statistics" class="btn btn-default">Alexa</button>
+      <button id="whois_statistics" class="btn btn-default">Whois</button>
+    </div>
   </div>
 
   <div class="row">
@@ -54,10 +65,13 @@
     <a id="linkedin_share" class="btn-social btn-sm btn-linkedin"><i class="fa fa-linkedin"></i></a>
   </div>
 
-  <div class="row">
-    <button class="btn btn-danger btn-sm formfineleft" id="about_support_button">About</button>
+  <div class="row" id="about">
+    <a id="about_support_button" class="btn btn-link">About</a>
   </div>
 
+  <script src="scripts/jquery.js"></script>
+  <script src="scripts/popper.min.js"></script>
+  <script src="scripts/bootstrap.min.js"></script>
   <script src="scripts/popup.js"></script>
 </body>
 </html>

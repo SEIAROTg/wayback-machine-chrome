@@ -1,5 +1,11 @@
 let global_url = '';
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({
+    container: 'body',
+  });
+})
+
 function remove_port(url) {
     if (url.endsWith(':80/')) {
         return url.slice(0, -4);
